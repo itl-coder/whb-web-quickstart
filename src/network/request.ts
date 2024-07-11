@@ -11,7 +11,7 @@ NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
 
 // 创建axios实例
 let request = axios.create({
-    baseURL: import.meta.env.VITE_APP_BASE_API,
+    baseURL: "http://localhost:8081",// import.meta.env.VITE_APP_BASE_API,
     timeout: 5000
 })
 //请求拦截器
@@ -39,16 +39,9 @@ request.interceptors.response.use((response) => {
         case 404:
             msg = "请求地址错误";
             break;
-        case 500:
-            msg = "服务器出现问题";
-            break;
         default:
             msg = "无网络";
     }
-    ElMessage({
-        type: 'error',
-        message: msg
-    })
     return Promise.reject(error);
 });
 export default request;
